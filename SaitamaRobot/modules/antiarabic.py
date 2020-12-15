@@ -59,6 +59,11 @@ _Admin only:_
  ◉ `/antiarabic <on/off>`: turn antiarabic module on/off ( off by default )
  """
 
+
+def markdown_help_sender(update: Update):
+    update.effective_message.reply_text(
+        MARKDOWN_HELP, parse_mode=ParseMode.HTML)
+    
 @run_async
 def antiarabic_help(update: Update, context: CallbackContext):
     if update.effective_chat.type != "private":
@@ -125,3 +130,4 @@ ANTI_ARABIC = MessageHandler(
 
 dispatcher.add_handler(SETTING_HANDLER)
 dispatcher.add_handler(ANTI_ARABIC, group=ANTIARABIC_GROUPS)
+ANTIARABIC_HELP_HANDLER = CommandHandler("antiarabichelp", antiarabic_help)
