@@ -33,7 +33,12 @@ def antiarabic_setting(update: Update, context: CallbackContext) -> str:
             elif args[0].lower() in ("no", "off", "false"):
                 sql.set_chat_setting(chat.id, False)
                 msg.reply_text("Turned off AntiArabic! Messages containing arabic text won't be deleted.")
-  
+         else:
+           msg.reply_text(ANTIARABIC_HELP).format(
+                sql.chat_antiarabic(chat.id),
+                parse_mode=ParseMode.MARKDOWN)
+        
+       
 ANTIARABIC_HELP = f"""
 *Here is the help for the Anti Arabic module:*
 
@@ -53,6 +58,20 @@ _Admin only:_
  ◉ `/antiarabic <on/off>`: turn antiarabic module on/off ( off by default )
  """
 
+@run_async
+def antiarabic_help(update: Update, context: CallbackContext):
+    if update.effective_chat.type != "private":
+        update.effective_message.reply_text(
+            'Contact me in pm',
+            reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton(
+                    "AntiArabic help",
+                    url=f"t.me/{context.bot.username}?start=antiarabichelp")
+            ]]))
+        return
+    antiarabic_help_sender(update)
+    
+    
 @user_not_admin
 @run_async
 def antiarabic(update: Update, context: CallbackContext):
