@@ -96,26 +96,7 @@ def __migrate__(old_chat_id, new_chat_id):
 
 
 
-__help__ = """
-\
-Here is some help for the AntiArabicScript module:
-AntiArabicScript module is used to delete messages containing characters from one of the following automatically:
 
-• Arabic
-• Arabic Supplement
-• Arabic Extended-A
-• Arabic Presentation Forms-A
-• Arabic Presentation Forms-B
-• Rumi Numeral Symbols
-• Arabic Mathematical Alphabetic Symbol
-
-NOTE: AntiArabicScript module doesn't affect messages sent by admins.
-
-Admin only:
- - `/antiarabic` `<on/off>`*:* turn antiarabic module on/off ( off by default )
-\
-"""
-__mod_name__ = "Anti Arabic"
 
 SETTING_HANDLER = CommandHandler("antiarabic", antiarabic_setting,
                                  pass_args=True)
