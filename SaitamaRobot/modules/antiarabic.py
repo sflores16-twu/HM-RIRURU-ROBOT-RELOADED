@@ -1,6 +1,7 @@
 
 from typing import List
 
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram import Update, Bot, ParseMode
 from telegram.ext import CallbackContext, CommandHandler, MessageHandler, Filters
 from telegram.ext.dispatcher import run_async
