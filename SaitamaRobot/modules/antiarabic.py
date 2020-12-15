@@ -34,7 +34,10 @@ def antiarabic_setting(update: Update, context: CallbackContext) -> str:
             elif args[0].lower() in ("no", "off", "false"):
                 sql.set_chat_setting(chat.id, False)
                 msg.reply_text("Turned off AntiArabic! Messages containing arabic text won't be deleted.")
-    
+        else:
+           msg.reply_text(ANTIARABIC_HELP).format(
+                sql.chat_antiarabic(chat.id),
+                parse_mode=ParseMode.MARKDOWN)
         
        
 ANTIARABIC_HELP = f"""
