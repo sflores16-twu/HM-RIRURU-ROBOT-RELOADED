@@ -33,11 +33,25 @@ def antiarabic_setting(update: Update, context: CallbackContext) -> str:
             elif args[0].lower() in ("no", "off", "false"):
                 sql.set_chat_setting(chat.id, False)
                 msg.reply_text("Turned off AntiArabic! Messages containing arabic text won't be deleted.")
-        else:
-           msg.reply_text("</antiarabic on/off> to turn on or turn off AntiArabic Mode.").format(
-                sql.chat_antiarabic(chat.id),
-                parse_mode=ParseMode.MARKDOWN)
+  
+ANTIARABIC_HELP = f"""
+*Here is the help for the Anti Arabic module:*
 
+AntiArabicScript module is used to delete messages containing characters from one of the following automatically:
+
+• Arabic
+• Arabic Supplement
+• Arabic Extended-A
+• Arabic Presentation Forms-A
+• Arabic Presentation Forms-B
+• Rumi Numeral Symbols
+• Arabic Mathematical Alphabetic Symbol
+
+*NOTE:* AntiArabicScript module doesn't affect messages sent by admins.
+
+_Admin only:_
+ ◉ `/antiarabic <on/off>`: turn antiarabic module on/off ( off by default )
+ """
 
 @user_not_admin
 @run_async
