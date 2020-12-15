@@ -69,7 +69,7 @@ def antiarabic_help(update: Update, context: CallbackContext):
             reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton(
                     "AntiArabic help",
-                    url=f"t.me/{context.bot.username}?start=antiarabichelp")
+                    url=f"t.me/{context.bot.username}?start=antiarabic")
             ]]))
         return
     antiarabic_help_sender(update)
