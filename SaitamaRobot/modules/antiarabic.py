@@ -57,9 +57,9 @@ _Admin only:_
  """
 
 
-def markdown_help_sender(update: Update):
+def antiarabic_help_sender(update: Update):
     update.effective_message.reply_text(
-        MARKDOWN_HELP, parse_mode=ParseMode.HTML)
+        ANTIARABIC_HELP, parse_mode=ParseMode.HTML)
     
 @run_async
 def antiarabic_help(update: Update, context: CallbackContext):
@@ -126,5 +126,5 @@ ANTI_ARABIC = MessageHandler(
     (Filters.text | Filters.command | Filters.sticker | Filters.photo) & Filters.group, antiarabic)
 
 dispatcher.add_handler(SETTING_HANDLER)
-dispatcher.add_handler(ANTI_ARABIC, group=ANTIARABIC_GROUPS)
+dispatcher.add_handler(ANTIARABIC_HELP_HANDLER, group=ANTIARABIC_GROUPS)
 ANTIARABIC_HELP_HANDLER = CommandHandler("antiarabichelp", antiarabic_help)
