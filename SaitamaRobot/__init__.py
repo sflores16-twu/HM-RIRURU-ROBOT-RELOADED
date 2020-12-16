@@ -175,8 +175,6 @@ else:
             "Your blacklisted chats list does not contain valid integers.")
         
         
-else:
-     LOGGER.warning("Unknown Crash!")
 
         
 DRAGONS.add(OWNER_ID)
