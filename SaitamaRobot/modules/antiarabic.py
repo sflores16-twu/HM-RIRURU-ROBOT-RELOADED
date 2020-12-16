@@ -80,7 +80,7 @@ def antiarabic_help(update: Update, context: CallbackContext):
     
 @user_not_admin
 @run_async
-def antiarabic(update: Update, context: CallbackContext):
+def antiarabic_help(update: Update, context: CallbackContext):
     bot = context.bot
     args = context.args
 
