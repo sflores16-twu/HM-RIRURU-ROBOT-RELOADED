@@ -125,10 +125,10 @@ def __migrate__(old_chat_id, new_chat_id):
 
 SETTING_HANDLER = CommandHandler("antiarabic", antiarabic_setting,
                                  pass_args=True)
-ANTIARABIC = MessageHandler(
+ANTIARABIC_HELP= MessageHandler(
     (Filters.text | Filters.command | Filters.sticker | Filters.photo) & Filters.group, antiarabic)
 ANTIARABIC_HELP_HANDLER = CommandHandler("antiarabichelp", antiarabic_help)
 
 dispatcher.add_handler(SETTING_HANDLER)
-dispatcher.add_handler(ANTIARABIC, group=ANTIARABIC_GROUPS)
+dispatcher.add_handler(ANTIARABIC_HELP, group=ANTIARABIC_GROUPS)
 dispatcher.add_handler(ANTIARABIC_HELP_HANDLER)
