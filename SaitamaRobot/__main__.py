@@ -17,7 +17,7 @@ from SaitamaRobot.modules.helper_funcs.readable_time import get_readable_time
 
 from SaitamaRobot import (ALLOW_EXCL, CERT_PATH, DONATION_LINK, LOGGER,
                           OWNER_ID, PORT, SUPPORT_CHAT, TOKEN, URL, WEBHOOK,
-                          SUPPORT_CHAT, dispatcher, StartTime, telethn, updater)
+                          SUPPORT_CHAT, dispatcher, StartTime, telethn, updater, RESPORATORY)
 
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
