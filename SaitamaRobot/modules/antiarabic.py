@@ -35,7 +35,7 @@ def antiarabic_setting(update: Update, context: CallbackContext) -> str:
                 sql.set_chat_setting(chat.id, False)
                 msg.reply_text("Turned off AntiArabic! Messages containing arabic text won't be deleted.")
         else:
-           msg.reply_text(ANTIARABIC_HELP_HANDLER).format(
+           msg.reply_text(ANTIARABIC_HELP).format(
                 sql.chat_antiarabic(chat.id),
                 parse_mode=ParseMode.MARKDOWN)
         
@@ -72,7 +72,7 @@ def antiarabic_help(update: Update, context: CallbackContext):
             reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton(
                     "AntiArabic help",
-                    url=f"t.me/{context.bot.username}?start=antiarabic")
+                    url=f"t.me/{context.bot.username}?start=antiarabichelp")
             ]]))
         return
     antiarabic_help_sender(update)
