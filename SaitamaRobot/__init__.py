@@ -3,6 +3,8 @@ import os
 import sys
 import time
 import spamwatch
+from redis import StrictRedis
+
 import telegram.ext as tg
 from telethon import TelegramClient
 
@@ -88,6 +90,14 @@ if ENV:
     SPAMWATCH_SUPPORT_CHAT = os.environ.get('SPAMWATCH_SUPPORT_CHAT', None)
     SPAMWATCH_API = os.environ.get('SPAMWATCH_API', None)
     REPOSITORY = os.environ.get('REPOSITORY', "")
+    
+    
+    try:
+        WHITELIST_CHATS = set(int(x) for x in os.environ.get('WHITELIST_CHATS', "").split())
+    except ValueError:
+        raise Exception(
+            "Your blacklisted chats list does not contain valid integers.")
+        
 
     try:
         BL_CHATS = set(int(x) for x in os.environ.get('BL_CHATS', "").split())
@@ -163,7 +173,12 @@ else:
     except ValueError:
         raise Exception(
             "Your blacklisted chats list does not contain valid integers.")
+        
+        
+else:
+     LOGGER.warning("Unknown Crash!")
 
+        
 DRAGONS.add(OWNER_ID)
 DEV_USERS.add(OWNER_ID)
 
@@ -172,8 +187,18 @@ if not SPAMWATCH_API:
     LOGGER.warning("SpamWatch API key missing! recheck your config.")
 else:
     sw = spamwatch.Client(SPAMWATCH_API)
-    
+
+
+REDIS = StrictRedis.from_url(REDIS_URL,decode_responses=True)
+try:
+    REDIS.ping()
     LOGGER.info("Your redis server is now alive!")
+except BaseException:
+    raise Exception("Your redis server is not alive, please check again.")
+    
+    
+api_id = API_ID
+api_hash = API_HASH
 
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient("saitama", API_ID, API_HASH)
