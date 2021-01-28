@@ -9,7 +9,7 @@ from telethon.errors import MessageEmptyError, MessageTooLongError, MessageNotMo
 import io
 import asyncio
 import time
-from tg_bot.events import register
+from SaitamaRobot.events import register
 import glob
 import os
 import instantmusic,subprocess
