@@ -1,6 +1,14 @@
 import html
 from typing import Optional
 
+from telegram import Message, Chat, User, Bot
+from telegram import ChatPermissions
+from telegram.error import BadRequest
+from telegram.ext.dispatcher import run_async
+from telegram.utils.helpers import mention_html
+from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
+from telegram.ext import CommandHandler, Filters, CallbackQueryHandler
+
 from SaitamaRobot import LOGGER, TIGERS, dispatcher
 from SaitamaRobot.modules.helper_funcs.chat_status import (bot_admin,
                                                            can_restrict,
@@ -11,10 +19,8 @@ from SaitamaRobot.modules.helper_funcs.extraction import (extract_user,
                                                           extract_user_and_text)
 from SaitamaRobot.modules.helper_funcs.string_handling import extract_time
 from SaitamaRobot.modules.log_channel import loggable
-from telegram import Bot, Chat, ChatPermissions, ParseMode, Update
-from telegram.error import BadRequest
-from telegram.ext import CallbackContext, CommandHandler, run_async
-from telegram.utils.helpers import mention_html
+from SaitamaRobot.modules.helper_funcs.admin_rights import user_can_ban
+
 
 @run_async
 @connection_status
@@ -28,30 +34,29 @@ def mute(update: Update, context: CallbackContext) -> str:
     user = update.effective_user
     message = update.effective_message
 
-    user_id, reason = extract_user_and_text(message, args)
+    if user_can_ban(chat, user, context.bot.id) is False:
+        message.reply_text(
+            "You don't have enough rights to restrict someone from talking!"
+        )
+        return ""
+    
+    user_id = extract_user(message, args)
     if not user_id:
-        reply = "You don't seem to be referring to a user or the ID specified is incorrect.."
+        message.reply_text(
+            "You don't seem to be referring to a user or the ID specified is incorrect."
+        )
         return ""
 
-    try:
-        member = chat.get_member(user_id)
-    except BadRequest as excp:
-        if excp.message == "User not found":
-            reply = "I can't seem to find this user"
-            return ""
-        else:
-            raise
-
-    if user_id == bot.id:
-        reply = "I'm not gonna MUTE myself, How high are you?"
+    if user_id == context.bot.id:
+        message.reply_text("I'm not gonna MUTE myself, How high are you?")
         return ""
-
-    if is_user_admin(chat, user_id, member) or user_id in TIGERS:
-        reply = "Can't. Find someone else to mute but not this one."
-        return ""
-
-    member = chat.get_member(user_id)
-
+    
+    if user_id == 777000 or user_id == 1087968824:
+        message.reply_text(str(user_id) + " is an account reserved for telegram, I cannot mute it!")
+        return ""  
+    
+    member = chat.get_member(int(user_id))
+    
     log = (
         f"<b>{html.escape(chat.title)}:</b>\n"
         f"#MUTE\n"
@@ -61,19 +66,38 @@ def mute(update: Update, context: CallbackContext) -> str:
     if reason:
         log += f"\n<b>Reason:</b> {reason}"
 
-    if member.can_send_messages is None or member.can_send_messages:
-        chat_permissions = ChatPermissions(can_send_messages=False)
-        bot.restrict_chat_member(chat.id, user_id, chat_permissions)
-        bot.sendMessage(
-            chat.id,
-            f"Muted <b>{html.escape(member.user.first_name)}</b> with no expiration date!",
-            parse_mode=ParseMode.HTML)
-        return log
+    if member:
+        if is_user_admin(chat, user_id, member=member):
+            message.reply_text("Well I'm not gonna stop an admin from talking!")
+        
+        elif member.can_send_messages is None or member.can_send_messages:
+            context.bot.restrict_chat_member(
+                chat.id, user_id, permissions=ChatPermissions(can_send_messages=False)
+            )
+            reply_msg = "Muted *{}* (`{}`) has been muted in *{}*.".format(
+                member.user.first_name,
+                member.user.id, chat.title) 
+            
+            message.reply_text(reply_msg,
+                               reply_markup=InlineKeyboardMarkup(
+                                   [
+                                       [
+                                           InlineKeyboardButton(text="Unmute", callback_data=f"muteb_mute={user_id}"),
+                                           InlineKeyboardButton(text="Delete", callback_data="muteb_del")  
+                                        ]
+                                    ]
+                                   ),
+                               parse_mode=ParseMode.MARKDOWN
+                               )
+            return log
 
+        else:
+            message.reply_text("This user is already muted.")
     else:
-        message.reply_text("This user is already muted!")
+        message.reply_text("This user isn't in the chat!")
 
     return ""
+
 
 #thanks to Sea Halfy git- hyper-ub for smute sban skick
 @run_async
