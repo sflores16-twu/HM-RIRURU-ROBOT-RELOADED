@@ -373,6 +373,78 @@ def stemp_mute(update: Update, context: CallbackContext) -> str:
 
     return ""
 
+  
+@run_async
+@bot_admin
+@loggable
+def muteb_callback(update, context):
+    query = update.callback_query
+    chat = update.effective_chat  
+    user = update.effective_user
+    if not query.data == "muteb_del":
+        splitter = query.data.split("=")
+        query_match = splitter[0]
+        user_id = splitter[1]
+        if query_match == "muteb_mute":
+            if not is_user_admin(chat, int(user.id)):
+                context.bot.answer_callback_query(query.id,
+                                                text="You don't have enough rights to unmute people",
+                                                show_alert=True)
+                return ""
+            member = chat.get_member(int(user_id))
+
+            if member.status != "kicked" and member.status != "left":
+                if (
+                    member.can_send_messages
+                    and member.can_send_media_messages
+                    and member.can_send_other_messages
+                    and member.can_add_web_page_previews
+                ):
+                    query.message.edit_text("This user already has the right to speak.")
+                else:
+                    context.bot.restrict_chat_member(
+                        chat.id,
+                        int(user_id),
+                        permissions=ChatPermissions(
+                            can_send_messages=True,
+                            can_invite_users=True,
+                            can_pin_messages=True,
+                            can_send_polls=True,
+                            can_change_info=True,
+                            can_send_media_messages=True,
+                            can_send_other_messages=True,
+                            can_add_web_page_previews=True,
+                        ),
+                    )
+                    query.message.edit_text(f"Yep! *{member.user.first_name}* (`{member.user.id}`) can start talking again!",
+                           parse_mode=ParseMode.MARKDOWN)
+                    context.bot.answer_callback_query(query.id,
+                                          text="Unmuted!"
+                                          )
+                    return (
+                        "<b>{}:</b>"
+                        "\n#UNMUTE"
+                        "\n<b>Admin:</b> {}"
+                        "\n<b>User:</b> {}".format(
+                            html.escape(chat.title),
+                            mention_html(user.id, user.first_name),
+                            mention_html(member.user.id, member.user.first_name),
+                        )
+                    )
+        
+    else:
+        if not is_user_admin(chat, int(user.id)):
+            context.bot.answer_callback_query(query.id,
+                                              text="You don't have enough rights to delete this message.",
+                                              show_alert=True)
+            return ""
+        query.message.delete()
+        context.bot.answer_callback_query(query.id,
+                                          text="Deleted!"
+                                          )
+        return ""
+      
+      
 __help__ = """
 *Admins only:*
  ✪ /mute <userhandle>*:* silences a user. Can also be used as a reply, muting the replied to user.
@@ -390,12 +462,14 @@ SMUTE_HANDLER = CommandHandler("smute", smute)
 UNMUTE_HANDLER = CommandHandler("unmute", unmute)
 TEMPMUTE_HANDLER = CommandHandler(["tmute", "tempmute"], temp_mute)
 STEMPMUTE_HANDLER = CommandHandler(["stmute", "stempmute"], stemp_mute)
+MBUTTON_CALLBACK_HANDLER = CallbackQueryHandler(muteb_callback, pattern=r"muteb_")
 
 dispatcher.add_handler(MUTE_HANDLER)
 dispatcher.add_handler(SMUTE_HANDLER)
 dispatcher.add_handler(UNMUTE_HANDLER)
 dispatcher.add_handler(TEMPMUTE_HANDLER)
 dispatcher.add_handler(STEMPMUTE_HANDLER)
+dispatcher.add_handler(MBUTTON_CALLBACK_HANDLER)
 
 __mod_name__ = "Muting"
 __handlers__ = [MUTE_HANDLER, SMUTE_HANDLER, UNMUTE_HANDLER, TEMPMUTE_HANDLER, TEMPMUTE_HANDLER]
