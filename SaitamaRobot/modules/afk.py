@@ -7,7 +7,10 @@ from telegram.error import BadRequest
 from telegram.ext import Filters, MessageHandler, run_async
 
 from SaitamaRobot import dispatcher
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
+from SaitamaRobot.modules.disable import (
+    DisableAbleCommandHandler,
+    DisableAbleMessageHandler,
+)
 from SaitamaRobot.modules.sql.afk_sql import start_afk, end_afk, is_user_afk, afk_reason
 from SaitamaRobot import REDIS
 from SaitamaRobot.modules.users import get_user_id
@@ -37,8 +40,7 @@ def afk(update, context):
     REDIS.set(f'afk_time_{update.effective_user.id}', start_afk_time)
     fname = update.effective_user.first_name
     try:
-        update.effective_message.reply_text(
-            "<b>{}</b> is now Away!".format(fname), parse_mode="html")
+        update.effective_message.reply_text("<b>{}</b> is now Away!".format(fname), parse_mode="html")
     except BadRequest:
         pass
 
