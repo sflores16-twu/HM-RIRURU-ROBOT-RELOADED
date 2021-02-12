@@ -78,9 +78,9 @@ def mute(update: Update, context: CallbackContext) -> str:
             context.bot.restrict_chat_member(
                 chat.id, user_id, permissions=ChatPermissions(can_send_messages=False)
             )
-            reply_msg = "Muted *{}* (`{}`) has been muted in *{}*.".format(
+            reply_text = "Muted <b>{}</b> has been muted in <b>{}</b>.".format(
                 member.user.first_name,
-                member.user.id, chat.title) 
+                chat.title) 
             
             message.reply_text(reply_msg,
                                reply_markup=InlineKeyboardMarkup(
