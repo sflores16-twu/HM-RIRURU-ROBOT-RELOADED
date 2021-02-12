@@ -10,16 +10,20 @@ from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CommandHandler, Filters, CallbackQueryHandler
 
 from SaitamaRobot import LOGGER, TIGERS, dispatcher
-from SaitamaRobot.modules.helper_funcs.chat_status import (bot_admin,
-                                                           can_restrict,
-                                                           connection_status,
-                                                           is_user_admin,
-                                                           user_admin)
-from SaitamaRobot.modules.helper_funcs.extraction import (extract_user,
-                                                          extract_user_and_text)
+from SaitamaRobot.modules.helper_funcs.chat_status import (
+    bot_admin,
+    user_admin,
+    connection_status,
+    is_user_admin,
+    can_restrict,
+)
+from SaitamaRobot.modules.helper_funcs.extraction import (
+    extract_user,
+    extract_user_and_text,
+)
 from SaitamaRobot.modules.helper_funcs.string_handling import extract_time
-from SaitamaRobot.modules.log_channel import loggable
 from SaitamaRobot.modules.helper_funcs.admin_rights import user_can_ban
+from SaitamaRobot.modules.log_channel import loggable
 
 
 @run_async
@@ -377,7 +381,7 @@ def stemp_mute(update: Update, context: CallbackContext) -> str:
 @run_async
 @bot_admin
 @loggable
-def muteb_callback(update, context):
+def muteb_callback(update: Update, context: CallbackContext) -> str:
     query = update.callback_query
     chat = update.effective_chat  
     user = update.effective_user
@@ -472,4 +476,3 @@ dispatcher.add_handler(STEMPMUTE_HANDLER)
 dispatcher.add_handler(MBUTTON_CALLBACK_HANDLER)
 
 __mod_name__ = "Muting"
-__handlers__ = [MUTE_HANDLER, SMUTE_HANDLER, UNMUTE_HANDLER, TEMPMUTE_HANDLER, TEMPMUTE_HANDLER]
