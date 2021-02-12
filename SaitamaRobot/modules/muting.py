@@ -7,7 +7,7 @@ from telegram.error import BadRequest
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import CommandHandler, Filters, CallbackQueryHandler
+from telegram.ext import CallbackContext, CommandHandler, Filters, CallbackQueryHandler
 
 from SaitamaRobot import LOGGER, TIGERS, dispatcher
 from SaitamaRobot.modules.helper_funcs.chat_status import (
