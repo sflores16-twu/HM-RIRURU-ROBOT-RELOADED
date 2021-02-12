@@ -1,7 +1,7 @@
 import html
 from typing import Optional
 
-from telegram import Message, Chat, User, Bot
+from telegram import Message, Chat, User, Bot, Update
 from telegram import ChatPermissions
 from telegram.error import BadRequest
 from telegram.ext.dispatcher import run_async
