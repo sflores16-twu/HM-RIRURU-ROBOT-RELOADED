@@ -59,7 +59,7 @@ from SaitamaRobot.modules.helper_funcs.readable_time import get_readable_time
 
 
 PM_START_TEXT = """
-Hello there,The name's [𝙎𝙪𝙯𝙪𝙮𝙖](https://telegra.ph/file/5bcbee541234987308553.jpg)
+Hello there,The name's [RIRURU](https://telegra.ph/file/63ed850d28a0e47656fcd.jpg)
 I am an 𝐴𝑛𝑖𝑚𝑒 Themed Group Managing Bot and I will help in managing your group
 ✪ Make sure you read *INFO* Section Below.✪ 
 """
@@ -77,14 +77,14 @@ buttons = [
     ],
     [
         InlineKeyboardButton(
-        text="💫 Add Suzuya to your group 💫", url="t.me/suzuya_probot?startgroup=true"
+        text="💫 Add RIRURU to your group 💫", url="t.me/RIRURU_ROBOT?startgroup=true"
         ),
     ]
 ]
 
 
 HELP_STRINGS = """
-*Main Commands :* [ʕ·ᴥ·ʔ](https://telegra.ph/file/5534384d2f2b2d8e6fdbb.jpg)
+*Main Commands :* [ʕ·ᴥ·ʔ](https://telegra.ph/file/63ed850d28a0e47656fcd.jpg)
 ✪ /start: Starts me! You've probably already used this.
 ✪ /help: Click this, I'll let you know about myself!
 ✪ /settings: 
@@ -250,9 +250,9 @@ def SaitamaRobot_about_callback(update, context):
     if query.data == "aboutmanu_":
         query.message.edit_text(
             text=f"*Hi again! The name's {dispatcher.bot.first_name}. \n\nAs  You I'm An Anime Themed Group Management Bot.* "
-                 f"\n\n Join [Updates Channel](https://t.me/SuzuyaUpdates) To Keep Yourself Updated About {dispatcher.bot.first_name}."
+                 f"\n\n Join [Updates Channel](https://t.me/RIRURU_UPDATES) To Keep Yourself Updated About {dispatcher.bot.first_name}."
                  f"\n\n I have the normal GROUP MANAGING functions like flood control, a warning system etc but I mainly have the advanced and handy Antispam system and the SIBYL banning system which safegaurds and helps your group from spammers."
-                 f"\n\nI Can Manage Your Groups Smoothly, With Some Special Features. [◖⚆ᴥ⚆◗](https://telegra.ph/file/7f6a4d656e89553340af9.jpg)."
+                 f"\n\nI Can Manage Your Groups Smoothly, With Some Special Features. [◖⚆ᴥ⚆◗](https://telegra.ph/file/63ed850d28a0e47656fcd.jpg)."
                  f"\n\nYou Can Know More About Me By Clicking The Below Buttons.",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
@@ -283,7 +283,7 @@ def SaitamaRobot_about_callback(update, context):
         query.message.edit_text(
             text=f"* ｢ BASIC HELP 」*"
                  f"\nIf You Can Also Add {dispatcher.bot.first_name} To Your Chats By Clicking [Here](http://t.me/{dispatcher.bot.username}?startgroup=true) And Selecting Chat. \n"
-                 f"\n\nYou Can Know Main commands of {dispatcher.bot.first_name} by Just Clicking [Here](https://telegra.ph/SUZUYA-GM-BOT-12-16).\n"
+                 f"\n\nYou Can Know Main commands of {dispatcher.bot.first_name} by Just Clicking [Here](https://telegra.ph/RIRURU-ROBOT-09-06).\n"
                  f"",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
