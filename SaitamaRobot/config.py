@@ -17,7 +17,7 @@ class Config(object):
 
     API_ID = 8209731  # integer value, dont use ""
     API_HASH = "635604e6b6443470a7b666968137b52d"
-    TOKEN = "2046900561:AAH524cxZoHai-QOMSkPS0wLkrJ-AbEFEtw"  #This var used to be API_KEY but it is now TOKEN, adjust accordingly.
+    TOKEN = "2079135271:AAEXLWbN4Atf601DPX56t6tgS1BDOj7X6XU"  #This var used to be API_KEY but it is now TOKEN, adjust accordingly.
     OWNER_ID = 2037172560  # If you dont know, run the bot and do /id in your private chat with it, also an integer
     OWNER_USERNAME = "Hell_FireDevil"
     SUPPORT_CHAT = 'OnePunchSupport'  #Your own group for support, do not add the @
