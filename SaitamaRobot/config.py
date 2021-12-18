@@ -32,7 +32,7 @@ class Config(object):
     WEBHOOK = False
     INFOPIC = True
     URL = None
-    SPAMWATCH_API = "UrzInZrO~lMP9mAoPUrVq0tUT5PkVD3~PMX3hmFcL9u95XTWkezFfzixqT2txlbbLK53RBG7R1WU80RYFILUWCH5L9F4"  # go to support.spamwat.ch to get key
+    SPAMWATCH_API = "UrzInZrO~lMP9mAoPUrVq0tUT5PkVD3~PMX3hmFcL9u95XTWkezFfzixqT2txlbb"  # go to support.spamwat.ch to get key
     SPAMWATCH_SUPPORT_CHAT = "@SpamWatchSupport"
 
     #OPTIONAL
