@@ -26,7 +26,7 @@ class Config(object):
 
     #RECOMMENDED
     SQLALCHEMY_DATABASE_URI = 'postgresql://bubohsyg:v-gLB0iyjP5_4nYaj3ZFqK24An5gxzHa@castor.db.elephantsql.com/bubohsyg'  # needed for any database modules
-    REDIS_URI = " "
+    REDIS_URI = ""
     LOAD = []
     NO_LOAD = ['rss', 'cleaner', 'connection', 'math']
     WEBHOOK = False
